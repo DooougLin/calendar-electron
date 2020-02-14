@@ -1,0 +1,4 @@
+node_modules
+/dist
+/dist_electron
+/calendar-electron-win32-x64
