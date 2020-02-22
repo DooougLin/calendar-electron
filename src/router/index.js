@@ -1,18 +1,12 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-// import Home from '../views/Home.vue';
-import TodayReview from '../views/TodayReview.vue';
-import ReviewCalendar from '../views/ReviewCalendar.vue';
-import RecordDetail from '../views/RecordDetail.vue';
+import TodayReview from '../views/study/TodayReview.vue';
+import ReviewCalendar from '../views/study/ReviewCalendar.vue';
+import RecordDetail from '../views/study/RecordDetail.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
-    // {
-    //     path: '/22',
-    //     name: 'Home',
-    //     component: Home
-    // },
     {
         path: '/',
         name: 'TodayReview',

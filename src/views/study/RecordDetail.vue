@@ -113,7 +113,7 @@
             <v-pagination v-model="page" :length="pageCount"></v-pagination>
         </div>
         <!-- ALERT -->
-        <v-alert class="s-alert" type="success" dismissible v-model='alert'
+        <v-alert class="s-alert" type="success" v-model='alert'
             transition="scroll-x-reverse-transition">
             保存成功
         </v-alert>
@@ -121,7 +121,7 @@
 </template>
 
 <script>
-import { getSimpleTodayTime, getTimeByDate } from '../assets/date';
+import { getSimpleTodayTime, getTimeByDate } from '@/assets/date';
 /* global writeDate recordData todayData */
 
 export default {

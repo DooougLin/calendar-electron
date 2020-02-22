@@ -77,8 +77,8 @@
 </template>
 
 <script>
-import LogoURL from './assets/logo.png';
-import NavigationURL from './assets/navigation.jpg';
+import LogoURL from '@/assets/logo.png';
+import NavigationURL from '@/assets/navigation.jpg';
 
 export default {
     data: () => ({

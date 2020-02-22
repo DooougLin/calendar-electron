@@ -60,7 +60,7 @@
 
 <script>
 import Swiper from 'swiper';
-import {getTimeByDate} from '../assets/date';
+import {getTimeByDate} from '@/assets/date';
 /* global writeDate recordData todayData historyData */
 
 export default {
@@ -152,7 +152,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../node_modules/swiper/css/swiper.min.css';
+@import '../../../node_modules/swiper/css/swiper.min.css';
 
 td {
     border-color: white !important;
