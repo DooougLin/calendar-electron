@@ -110,7 +110,7 @@ export default {
                 record.count--;
             }
             obj.flag = !obj.flag;
-            todayData.data = this.records;
+            // todayData.data = this.records;
             writeDate('today', todayData);
         },
         openOverlay(recordIndex, confirmIndex){
@@ -137,7 +137,6 @@ export default {
             // 全局变量赋值 和 文件写入
             recordData.data[index] = record;
             writeDate('record', recordData);
-            todayData.data = this.records;
             writeDate('today', todayData);
             historyData.data.push({
                 title: record.title,

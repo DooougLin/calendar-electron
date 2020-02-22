@@ -111,7 +111,6 @@ import { getSimpleTodayTime, getTimeByDate } from '../assets/date';
 export default {
     data: () => ({
         records: recordData.data,
-        deleteRecords: [],
         headers: [
             {text: 'Name', value: 'title', sortable: true},
             {
@@ -141,9 +140,18 @@ export default {
         newDialog: false,
         addDetailDialog: false,
         expanded: [],
-        saveColor: 'primary',
         alert: false
     }),
+    computed: {
+        saveColor: {
+            get(){
+                return this.$store.state.saveColor;
+            },
+            set(val){
+                this.$store.commit('SET_SAVE_COLOR', val);
+            }
+        }
+    },
     watch: {
         records: function(){
             this.saveColor = 'red';
@@ -154,16 +162,16 @@ export default {
             this.newDialog = false;
         },
         save(){
-            console.log(`save ${this.deleteRecords}`);
+            let deleteRecords = this.$store.state.deleteRecords;
 
-            if (this.deleteRecords.length !== 0){
-                todayData.data = todayData.data.filter(i => this.deleteRecords.some(t => t !== i.title));
+            console.log(`save ${deleteRecords}`);
+            if (deleteRecords !== 0){
+                todayData.data = todayData.data.filter(i => deleteRecords.some(t => t !== i.title));
                 writeDate('today', todayData);
                 this.$store.commit('SET_DELETE');
-                this.deleteRecords.length = 0;
+                deleteRecords.length = 0;
             }
             this.saveColor = 'primary';
-            recordData.data = this.records;
             writeDate('record', recordData);
             this.alert = true;
             setTimeout(() => {
@@ -189,9 +197,10 @@ export default {
         },
         deleteItem(item){
             const index = this.records.indexOf(item);
+            let deleteRecords = this.$store.state.deleteRecords;
 
-            this.deleteRecords.push(this.records.splice(index, 1)[0].title);
-            console.log(`deleteItem ${this.deleteRecords}`);
+            deleteRecords.push(this.records.splice(index, 1)[0].title);
+            console.log(`deleteItem ${deleteRecords}`);
         },
         clearDetail(item, detailIndex){
             const index = this.records.indexOf(item);
