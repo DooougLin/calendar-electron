@@ -17,9 +17,6 @@ export default new Vuex.Store({
         SET_CLICK_DATA: (state, data) => {
             state.clickDataFromCalendar = data;
         },
-        SET_DELETE_RECORD: (state, data) => {
-            state.deleteRecords = data;
-        },
         SET_SAVE_COLOR: (state, data) => {
             state.saveColor = data;
         }

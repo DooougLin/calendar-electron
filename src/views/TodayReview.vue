@@ -1,5 +1,4 @@
 <template>
-    <!-- <div class="ma-2"> -->
     <v-container>
         <!-- 加载条 -->
         <v-progress-linear :active="loading" :indeterminate="loading" striped absolute top
@@ -56,7 +55,6 @@
             </div>
         </div>
     </v-container>
-    <!-- </div> -->
 
 </template>
 

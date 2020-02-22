@@ -44,20 +44,35 @@
             </template>
             <!-- ACTION -->
             <template v-slot:item.action="{ item }">
-                <v-icon small class="mr-2" @click="addDetail(item)">
-                    add
-                </v-icon>
-                <v-icon small @click="deleteItem(item)">
-                    delete
-                </v-icon>
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-icon v-on="on" small class="mr-2" @click="addDetail(item)">
+                            add
+                        </v-icon>
+                    </template>
+                    <span>增加明细</span>
+                </v-tooltip>
+
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-icon v-on="on" small @click="deleteItem(item)">
+                            delete
+                        </v-icon>
+                    </template>
+                    <span>删除</span>
+                </v-tooltip>
             </template>
             <!-- SLOT:DETAIL -->
             <template v-slot:expanded-item="{ item  }">
                 <td>
                     <div class="my-3" v-for="(i,index) in item.items" :key="i.title">
-                        <v-btn icon @click="clearDetail(item,index)">
-                            <v-icon color="red">clear</v-icon>
-                        </v-btn>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on }">
+                                <v-icon v-on="on" color="red" @click="clearDetail(item,index)">clear
+                                </v-icon>
+                            </template>
+                            <span>删除</span>
+                        </v-tooltip>
                         {{i.title}}
                     </div>
                 </td>
@@ -98,8 +113,9 @@
             <v-pagination v-model="page" :length="pageCount"></v-pagination>
         </div>
         <!-- ALERT -->
-        <v-alert class="s-alert" type="success" dismissible v-model='alert' transition="scroll-x-reverse-transition">
-            I'm a success alert.
+        <v-alert class="s-alert" type="success" dismissible v-model='alert'
+            transition="scroll-x-reverse-transition">
+            保存成功
         </v-alert>
     </v-container>
 </template>
@@ -164,7 +180,6 @@ export default {
         save(){
             let deleteRecords = this.$store.state.deleteRecords;
 
-            console.log(`save ${deleteRecords}`);
             if (deleteRecords !== 0){
                 todayData.data = todayData.data.filter(i => deleteRecords.some(t => t !== i.title));
                 writeDate('today', todayData);
@@ -200,7 +215,6 @@ export default {
             let deleteRecords = this.$store.state.deleteRecords;
 
             deleteRecords.push(this.records.splice(index, 1)[0].title);
-            console.log(`deleteItem ${deleteRecords}`);
         },
         clearDetail(item, detailIndex){
             const index = this.records.indexOf(item);
@@ -222,7 +236,7 @@ export default {
 </script>
 
 <style>
-.s-alert{
+.s-alert {
     position: fixed;
     right: 0;
     top: 20px;
