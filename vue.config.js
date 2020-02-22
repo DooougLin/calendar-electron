@@ -1,5 +1,6 @@
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+
 module.exports = {
-    // vue-cli3之后需要配置这个来控制图标
     pwa: {
         iconPaths: {
             favicon32: 'favicon.ico',
@@ -9,7 +10,14 @@ module.exports = {
             msTileImage: 'favicon.ico'
         }
     },
-    // 不配置这个路径会有dist文件的html打开是空白的问题
     runtimeCompiler: true,
-    publicPath: './'
+    publicPath: './',
+    transpileDependencies: ['vuetify'],
+    configureWebpack: {
+        plugins: [
+            new CopyWebpackPlugin([
+                { from: './public/static', to: 'static', ignore: ['.*'] }
+            ])
+        ]
+    }
 };

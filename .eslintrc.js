@@ -24,7 +24,7 @@ module.exports = {
         'no-catch-shadow': 2, //禁止catch子句参数与外部作用域变量同名
         'no-class-assign': 2, //禁止给类赋值
         'no-cond-assign': 2, //禁止在条件表达式中使用赋值语句
-        'no-console': 2, //禁止使用console2
+        'no-console': 0, //禁止使用console2
         'no-const-assign': 2, //禁止修改const声明的变量
         'no-constant-condition': 2, //禁止在条件中使用常量表达式 if(true) if(1)
         'no-continue': 0, //禁止使用continue
@@ -70,7 +70,7 @@ module.exports = {
         'no-multiple-empty-lines': [
             1,
             {
-                max: 3
+                max: 1
             }
         ], //空行最多不能超过2行
         'no-native-reassign': 2, //不能重写native对象
@@ -93,7 +93,7 @@ module.exports = {
         'no-redeclare': 2, //禁止重复声明变量
         'no-regex-spaces': 2, //禁止在正则表达式字面量中使用多个空格 /foo bar/
         'no-restricted-modules': 0, //如果禁用了指定模块，使用就会报错
-        'no-return-assign': 1, //return 语句中不能有赋值表达式
+        'no-return-assign': 0, //return 语句中不能有赋值表达式
         'no-script-url': 0, //禁止使用javascript:void(0)
         'no-self-compare': 2, //不能比较自身
         'no-sequences': 0, //禁止使用逗号运算符
@@ -137,7 +137,7 @@ module.exports = {
         'import/extensions': 2, //导入js
         'array-bracket-spacing': [2, 'never'], //是否允许非空数组里面有多余的空格
         'arrow-parens': 0, //箭头函数用小括号括起来
-        'arrow-spacing': 0, //=>的前/后括号
+        'arrow-spacing': [1,{ "before": true, "after": true }], //=>的前/后括号
         'accessor-pairs': 0, //在对象中使用getter/setter
         'block-scoped-var': 0, //块语句中使用var
         'brace-style': [1, '1tbs'], //大括号风格
@@ -154,7 +154,7 @@ module.exports = {
                 functions: 'never'
             }
         ], //对象字面量项尾不能有逗号
-        'comma-spacing': 0, //逗号前后的空格
+        'comma-spacing': [1,{ "before": false, "after": true }], //逗号前后的空格
         'comma-style': [2, 'last'], //逗号风格，换行时在行首还是行尾
         complexity: [0, 11], //循环复杂度
         'computed-property-spacing': [0, 'never'], //是否允许计算后的键名什么的
@@ -178,10 +178,10 @@ module.exports = {
         'guard-for-in': 0, //for in循环要用if语句过滤
         'handle-callback-err': 0, //nodejs 处理错误
         'id-length': 0, //变量名长度
-        indent: [1, 4], //缩进风格
+        indent: [1, 4, { SwitchCase: 1 }], //缩进风格
         'init-declarations': 0, //声明时必须赋初值
         'key-spacing': [
-            0,
+            1,
             {
                 beforeColon: false,
                 afterColon: true
@@ -200,7 +200,7 @@ module.exports = {
         'object-shorthand': 0, //强制对象字面量缩写语法
         'one-var': 1, //连续声明
         'operator-assignment': [0, 'always'], //赋值运算符 += -=什么的
-        'operator-linebreak': [2, 'after'], //换行时运算符在行尾还是行首
+        'operator-linebreak': [2, 'none'], //换行时运算符在行尾还是行首
         'padded-blocks': 0, //块语句内行首行尾是否要空行
         'prefer-const': 0, //首选const
         'prefer-spread': 0, //首选展开运算
@@ -210,7 +210,7 @@ module.exports = {
         radix: 2, //parseInt必须指定第二个参数
         'id-match': 0, //命名检测
         'require-yield': 0, //生成器函数必须有yield
-        semi: [0, 'always'], //语句强制分号结尾
+        semi: [1, 'always'], //语句强制分号结尾
         'semi-spacing': [
             0,
             {
@@ -223,17 +223,17 @@ module.exports = {
         'space-before-blocks': [0, 'always'], //不以新行开始的块{前面要不要有空格
         'space-before-function-paren': [0, 'always'], //函数定义时括号前面要不要有空格
         'space-in-parens': [0, 'never'], //小括号里面要不要有空格
-        'space-infix-ops': 0, //中缀操作符周围要不要有空格
+        'space-infix-ops': 1, //中缀操作符周围要不要有空格
         'space-unary-ops': [
             0,
             {
                 words: true,
-                nonwords: false
+                nonwords: true
             }
         ], //一元运算符的前/后要不要加空格
         'spaced-comment': 0, //注释风格要不要有空格什么的
         strict: 2, //使用严格模式
-        'use-isnan': 2, //禁止比较时使用NaN，只能用isNaN()
+        'use-isnan': 2, //禁止比较时使用NaN，只能用isNaN()`
         'valid-jsdoc': 0, //jsdoc规则
         'valid-typeof': 2, //必须使用合法的typeof的值
         'vars-on-top': 2, //var必须放在作用域顶部
@@ -258,6 +258,7 @@ module.exports = {
         ],
         'global-require': 0,
         'import/no-dynamic-require': 0,
-        'class-methods-use-this': 0
+        'class-methods-use-this': 0,
+        'multiline-ternary': [1, 'never']
     }
 };

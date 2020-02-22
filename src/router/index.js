@@ -1,30 +1,37 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
-import About from '../views/About.vue';
+// import Home from '../views/Home.vue';
+import TodayReview from '../views/TodayReview.vue';
+import ReviewCalendar from '../views/ReviewCalendar.vue';
+import RecordDetail from '../views/RecordDetail.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
+    // {
+    //     path: '/22',
+    //     name: 'Home',
+    //     component: Home
+    // },
     {
         path: '/',
-        name: 'Home',
-        component: Home
+        name: 'TodayReview',
+        component: TodayReview
     },
     {
-        path: '/about',
-        name: 'About',
-        component:About
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    // component: () =>
-    //   import(/* webpackChunkName: "about" */ "../views/About.vue")
+        path: '/reviewCalendar',
+        name: 'ReviewCalendar',
+        component: ReviewCalendar
+    },
+    {
+        path: '/recordDetail',
+        name: '/RecordDetail',
+        component: RecordDetail
     }
 ];
 
 const router = new VueRouter({
-    // mode: 'history',
+    mode: 'history',
     base: process.env.BASE_URL,
     routes
 });
