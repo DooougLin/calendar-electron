@@ -1,9 +1,8 @@
 <template>
     <v-container>
-        <v-data-table :single-expand="true" show-expand :expanded.sync="expanded"
-            class="elevation-4" item-key="title" sort-by="nextTime" sort-desc :headers="headers"
-            :items="records" :items-per-page="5" :page.sync="page" @page-count="pageCount = $event"
-            hide-default-footer>
+        <v-data-table :single-expand="true" show-expand :expanded.sync="expanded" class="elevation-4" item-key="title"
+            sort-by="nextTime" sort-desc :headers="headers" :items="records" :items-per-page="5" :page.sync="page"
+            @page-count="pageCount = $event" hide-default-footer>
             <!-- TOP BAR -->
             <template v-slot:top>
                 <v-toolbar flat color="white">
@@ -25,8 +24,8 @@
                                 <v-container>
                                     <v-row>
                                         <v-col>
-                                            <v-text-field @keyup.enter="saveItem"
-                                                v-model="editedItem.title" label="Name" autofocus>
+                                            <v-text-field @keyup.enter="saveItem" v-model="editedItem.title"
+                                                label="Name" autofocus>
                                             </v-text-field>
                                         </v-col>
                                     </v-row>
@@ -35,7 +34,7 @@
                             <!-- BTN GROUP -->
                             <v-card-actions>
                                 <v-spacer></v-spacer>
-                                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+                                <v-btn color="blue darken-1" text @click="newDialog=false">Cancel</v-btn>
                                 <v-btn color="blue darken-1" text @click="saveItem">Save</v-btn>
                             </v-card-actions>
                         </v-card>
@@ -90,8 +89,8 @@
                         <v-container>
                             <v-row>
                                 <v-col>
-                                    <v-text-field @keyup.enter="saveDetail" v-model="detail.title"
-                                        label="Name" autofocus>
+                                    <v-text-field @keyup.enter="saveDetail" v-model="detail.title" label="Name"
+                                        autofocus>
                                     </v-text-field>
                                 </v-col>
                             </v-row>
@@ -100,7 +99,7 @@
                     <!-- BTN GROUP -->
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="closeDetail">Cancel
+                        <v-btn color="blue darken-1" text @click="addDetailDialog = false">Cancel
                         </v-btn>
                         <v-btn color="blue darken-1" text @click="saveDetail">Save
                         </v-btn>
@@ -113,8 +112,7 @@
             <v-pagination v-model="page" :length="pageCount"></v-pagination>
         </div>
         <!-- ALERT -->
-        <v-alert class="s-alert" type="success" v-model='alert'
-            transition="scroll-x-reverse-transition">
+        <v-alert class="s-alert" type="success" v-model='alert' transition="scroll-x-reverse-transition">
             保存成功
         </v-alert>
     </v-container>
@@ -122,40 +120,25 @@
 
 <script>
 import { getSimpleTodayTime, getTimeByDate } from '@/assets/date';
+import {TableData, DISABLE_SORTED} from '@/assets/util';
 /* global writeDate recordData todayData */
 
 export default {
     data: () => ({
         records: recordData.data,
-        headers: [
-            {text: 'Name', value: 'title', sortable: true},
-            {
-                text: 'Level', value: 'level',  sortable: true
-            },
-            {
-                text: 'Start', value: 'startTime', align: 'center', sortable: true
-            },
-            {
-                text: 'NextTime', value: 'nextTime', align: 'center', sortable: true
-            },
-            {
-                text: 'PreTime', value: 'preTime', align: 'center', sortable: true
-            },
-            {
-                text: 'Action', value: 'action', align: 'center'
-            },
-            {
-                text: 'Detail', value: 'data-table-expand'
-            }
-        ],
+        headers: TableData.getObjectFromArray([
+            ['名称', 'title'], ['级别', 'level'], ['创建时间', 'startTime', 'center'],
+            ['下次复习', 'nextTime', 'center'], ['上次复习', 'preTime', 'center'],
+            ['操作', 'action', 'center', DISABLE_SORTED], ['明细', 'data-table-expand', 'left', DISABLE_SORTED]
+        ]),
+        page: 1,
+        pageCount: 0,
         editedItem: {},
         detail: {},
         item: {},
-        page: 1,
-        pageCount: 0,
+        expanded: [],
         newDialog: false,
         addDetailDialog: false,
-        expanded: [],
         alert: false
     }),
     computed: {
@@ -174,9 +157,6 @@ export default {
         }
     },
     methods: {
-        close(){
-            this.newDialog = false;
-        },
         save(){
             let deleteRecords = this.$store.state.deleteRecords;
 
@@ -206,6 +186,13 @@ export default {
             this.records.push(obj);
             this.newDialog = false;
         },
+        saveDetail(){
+            const index = this.records.indexOf(this.item);
+
+            this.records[index].items.push({title: this.detail.title});
+            this.addDetailDialog = false;
+            this.saveColor = 'red';
+        },
         addDetail(item){
             this.item = item;
             this.addDetailDialog = true;
@@ -220,16 +207,6 @@ export default {
             const index = this.records.indexOf(item);
 
             this.records[index].items.splice(detailIndex, 1);
-        },
-        closeDetail(){
-            this.addDetailDialog = false;
-        },
-        saveDetail(){
-            const index = this.records.indexOf(this.item);
-
-            this.records[index].items.push({title: this.detail.title});
-            this.addDetailDialog = false;
-            this.saveColor = 'red';
         }
     }
 };

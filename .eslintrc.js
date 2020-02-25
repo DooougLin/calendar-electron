@@ -137,7 +137,7 @@ module.exports = {
         'import/extensions': 2, //导入js
         'array-bracket-spacing': [2, 'never'], //是否允许非空数组里面有多余的空格
         'arrow-parens': 0, //箭头函数用小括号括起来
-        'arrow-spacing': [1,{ "before": true, "after": true }], //=>的前/后括号
+        'arrow-spacing': [1, { "before": true, "after": true }], //=>的前/后括号
         'accessor-pairs': 0, //在对象中使用getter/setter
         'block-scoped-var': 0, //块语句中使用var
         'brace-style': [1, '1tbs'], //大括号风格
@@ -154,7 +154,7 @@ module.exports = {
                 functions: 'never'
             }
         ], //对象字面量项尾不能有逗号
-        'comma-spacing': [1,{ "before": false, "after": true }], //逗号前后的空格
+        'comma-spacing': [1, { "before": false, "after": true }], //逗号前后的空格
         'comma-style': [2, 'last'], //逗号风格，换行时在行首还是行尾
         complexity: [0, 11], //循环复杂度
         'computed-property-spacing': [0, 'never'], //是否允许计算后的键名什么的
@@ -259,6 +259,7 @@ module.exports = {
         'global-require': 0,
         'import/no-dynamic-require': 0,
         'class-methods-use-this': 0,
-        'multiline-ternary': [1, 'never']
+        'multiline-ternary': [1, 'never'],
+        'object-curly-newline': [1, { "ObjectPattern": { "multiline": true } }]// 对象的换行{解构}
     }
 };

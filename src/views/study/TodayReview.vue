@@ -66,11 +66,11 @@ import {getTimeByDate} from '@/assets/date';
 export default {
     name: 'TodayReview',
     data: () => ({
-        headers: [{text: 'name', value: 'title'}, {text: 'action', value: 'action', align: 'center'}],
         records: todayData.data,
+        headers: [{text: 'name', value: 'title'}, {text: 'action', value: 'action', align: 'center'}],
+        nextNumber: [0, 1, 3, 3, 6, 16, 44, 30, 60, 60, 150],
         level: ['star_border', 'star_border', 'star_half', 'star_half', 'star', 'star', 'school', 'school', 'beenhere', 'beenhere', 'beenhere'],
         levelColor: ['#F5DA55', 'green'],
-        nextNumber: [0, 1, 3, 3, 6, 16, 44, 30, 60, 60, 150],
         confirmColor: ['green', 'orange', 'red'],
         confirms: ['👍认识',  '👌模糊',  '🤢忘记'],
         item: {},

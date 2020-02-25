@@ -30,7 +30,7 @@
                     <v-list-item-group v-model="item">
                         <section v-for="item in items" :key="item.title">
                             <!-- SUBGROUP -->
-                            <v-list-group v-if="item.subgroup" :prepend-icon="item.icon" value="true" color="white">
+                            <v-list-group v-if="item.subgroup" :prepend-icon="item.icon" :value="true" color="white">
                                 <template v-slot:activator>
                                     <v-list-item-title>{{item.title}}</v-list-item-title>
                                 </template>
@@ -65,6 +65,11 @@
                     <v-icon :color="color" dark>pets</v-icon>
                 </v-btn>
                 <span class="pl-1 font-weight-black">Dashboard</span>
+                <v-spacer></v-spacer>
+                <v-btn class="ma-1 pl-1" @click="openGitHub">
+                    <v-img :src="github" class="mr-1"></v-img>
+                    <span class="font-weight-black">{{githubStar}}</span>
+                </v-btn>
             </v-app-bar>
             <!-- CONTENT -->
             <v-content>
@@ -79,28 +84,63 @@
 <script>
 import LogoURL from '@/assets/logo.png';
 import NavigationURL from '@/assets/navigation.jpg';
+import Github from '@/assets/github.png';
+/* global configData writeDate */
+
+const SUB_NAVIGATION = true;
+
+class Navigation{
+    // 导航数据构造函数 subgroup为T的是有二级菜单的List
+    constructor(title, icon, urlOrSubgroup, subgroup = false){
+        this.title = title;
+        this.icon = icon;
+        if (subgroup){
+            this.subgroup = urlOrSubgroup;
+        } else {
+            this.url = urlOrSubgroup;
+        }
+    }
+
+}
 
 export default {
     data: () => ({
-        logourl: LogoURL,
-        navigationurl: NavigationURL,
         items: [
-            { title: '学习记录', icon: 'description', subgroup: [{title: '今日复习', icon: 'watch_later', url: '/'}, {title: '复习日历', icon: 'date_range', url: '/reviewCalendar'}, {title: '条目明细', icon: 'insert_drive_file', url: '/recordDetail'}]},
-            { title: '面试记录', icon: 'question_answer'}
-            // { title: '配置参数', icon: 'settings'},
+            new Navigation('学习记录', 'description', [
+                new Navigation('今日复习', 'watch_later', '/'),
+                new Navigation('复习日历', 'date_range', '/reviewCalendar'),
+                new Navigation('条目明细', 'insert_drive_file', '/recordDetail')
+            ], SUB_NAVIGATION),
+            new Navigation('面试记录', 'question_answer', 'interview'),
+            new Navigation('配置参数', 'settings', '/settings')
             // { title: '数据文件', icon: 'sd_storage'}
         ],
         item: {},
+        color: 'blue',
+        githubStar: configData.star,
         navigation: false,
-        color: 'blue'
+        logourl: LogoURL,
+        navigationurl: NavigationURL,
+        github: Github
     }),
     methods: {
         openNavigation(){
             this.navigation = !this.navigation;
             this.color = this.color === 'blue' ? '' : 'blue';
+        },
+        openGitHub(){
+            window.open('https://github.com/DooougLin/calendar-electron');
         }
     },
     mounted(){
+        // 请求github API
+        this.$api.get('https://api.github.com/repos/DooougLin/calendar-electron')
+            .then(res => {
+                if (this.githubStar !== res.data.stargazers_count) {
+                    this.githubStar = res.data.stargazers_count;
+                    writeDate('config', configData);
+                }
+            });
     }
 };
 </script>
