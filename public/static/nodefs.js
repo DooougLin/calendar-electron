@@ -19,6 +19,20 @@ const writeDate = (fileName, data) => {
     });
 };
 
+// 获取格式化的时间
+function getFormatDate(date = new Date()){
+    let month = String(date.getMonth() + 1) ;
+    let day = `${date.getDate()}`;
+
+    if (month.length === 1){
+        month = `0${month}`;
+    }
+    if (day.length === 1){
+        day = `0${day}`;
+    }
+    return `${date.getFullYear()}-${month}-${day}`;
+}
+
 // INIT
 if (!fs.existsSync('./data')) {
     fs.mkdirSync('./data');
@@ -46,7 +60,7 @@ if (!fs.existsSync('./data')) {
         addr: '阿里巴巴西溪园区1号楼',
         type: '面试',
         time: subDate.getTime(),
-        date: dateStr,
+        date: getFormatDate(subDate),
         dateTime: `${subDate.getHours()}:${subDate.getMinutes()}`,
         note: 'http://note.youdao.com/noteshare?id=24395ccc86944c4dc808c86c122f2074',
         remake: '嘻嘻嘻嘻嘻嘻嘻'
