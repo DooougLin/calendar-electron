@@ -56,7 +56,7 @@ if (!fs.existsSync('./data')) {
     writeDate('record', {'data': [defaultObj]});
     writeDate('history', {'data': []});
     writeDate('interview', {'data': [defaultInterviewObj]});
-    writeDate('config', {'color': 'primary', 'theme': 'light', 'star': 0});
+    writeDate('config', {'color': 'primary', 'theme': 'light', 'star': 0, 'navigation': false});
 }
 
 const readDate = path => JSON.parse(fs.readFileSync(`./data/${path}.json`).toString());

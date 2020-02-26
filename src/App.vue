@@ -118,7 +118,7 @@ export default {
         item: {},
         color: 'blue',
         githubStar: configData.star,
-        navigation: false,
+        navigation: configData.navigation,
         logourl: LogoURL,
         navigationurl: NavigationURL,
         github: Github
@@ -127,6 +127,8 @@ export default {
         openNavigation(){
             this.navigation = !this.navigation;
             this.color = this.color === 'blue' ? '' : 'blue';
+            configData.navigation = this.navigation;
+            writeDate('config', configData);
         },
         openGitHub(){
             window.open('https://github.com/DooougLin/calendar-electron');
@@ -138,6 +140,7 @@ export default {
             .then(res => {
                 if (this.githubStar !== res.data.stargazers_count) {
                     this.githubStar = res.data.stargazers_count;
+                    configData.star = this.githubStar;
                     writeDate('config', configData);
                 }
             });
